@@ -27,8 +27,6 @@ router.get('/', function(req, res) {
 
 router.route('/transactions')
   .post(function(req, res) {
-    console.log(req);
-
     var transaction = new Transaction();
     transaction = Object.assign(transaction, req.body);
 
@@ -94,6 +92,12 @@ router.route('/transactions/:transaction_id')
       res.json({ message: 'Transaction deleted successfully.' });
     });
   });
+
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Origin', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 
 app.use('/api', router);
 
